@@ -25,10 +25,13 @@ struct ContentView: View {
     let date : Date
     let df: DateFormatter
     
+    let fontSize: CGFloat = 13
+    let priceTotal: String = "Total: ($) 0.00"
+    
     init() {
         date = Date()
         df = DateFormatter()
-        df.dateFormat = "yyyy-MM-dd, (EEE)"
+        df.dateFormat = "MMM d, yyyy (EEE)"
     }
     
     var body: some View {
@@ -36,8 +39,14 @@ struct ContentView: View {
         ZStack {
             VStack {
                 HStack {
-                    Text("Books List:")
                     Text(date, formatter: df)
+                        .font(.system(size: fontSize, weight: .light, design: .default))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .foregroundColor(.black)
+                    Text(priceTotal)
+                        .font(.system(size: fontSize, weight: .light, design: .default))
+                        .frame(maxWidth: .infinity, alignment: .trailing)
+                        .foregroundColor(.blue)
                 }
                 
                 List(books, id: \.id) { item in
