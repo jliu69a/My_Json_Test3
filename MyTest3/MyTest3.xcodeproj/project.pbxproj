@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FECC72342924753100A257AE /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FECC72332924753100A257AE /* DetailsView.swift */; };
 		FED53EC52922FB6A004D48EA /* MyTest3App.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED53EC42922FB6A004D48EA /* MyTest3App.swift */; };
 		FED53EC72922FB6A004D48EA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED53EC62922FB6A004D48EA /* ContentView.swift */; };
 		FED53EC92922FB6A004D48EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FED53EC82922FB6A004D48EA /* Assets.xcassets */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FECC72332924753100A257AE /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
 		FED53EC12922FB6A004D48EA /* MyTest3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyTest3.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FED53EC42922FB6A004D48EA /* MyTest3App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTest3App.swift; sourceTree = "<group>"; };
 		FED53EC62922FB6A004D48EA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -57,6 +59,7 @@
 				FED53ED2292304F7004D48EA /* Info.plist */,
 				FED53EC42922FB6A004D48EA /* MyTest3App.swift */,
 				FED53EC62922FB6A004D48EA /* ContentView.swift */,
+				FECC72332924753100A257AE /* DetailsView.swift */,
 				FED53EC82922FB6A004D48EA /* Assets.xcassets */,
 				FED53ECA2922FB6A004D48EA /* Preview Content */,
 				FED53ED3292305CD004D48EA /* JsonsData.swift */,
@@ -143,6 +146,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FED53ED4292305CD004D48EA /* JsonsData.swift in Sources */,
+				FECC72342924753100A257AE /* DetailsView.swift in Sources */,
 				FED53EC72922FB6A004D48EA /* ContentView.swift in Sources */,
 				FED53EC52922FB6A004D48EA /* MyTest3App.swift in Sources */,
 			);

@@ -22,37 +22,56 @@ struct ContentView: View {
     
     @State var isHidden = false
     
+    let date : Date
+    let df: DateFormatter
+    
+    init() {
+        date = Date()
+        df = DateFormatter()
+        df.dateFormat = "yyyy-MM-dd, (EEE)"
+    }
+    
     var body: some View {
         
         ZStack {
-            List(books, id: \.id) { item in
-                VStack(alignment: .leading) {
-                    Text(item.id)
-                        .font(.headline)
-                    Text(item.title)
-                    HStack(alignment: .top) {
-                        Text(item.author.last_name)
-                        Text(", ")
-                        Text(item.author.first_name)
-                    }
-                    HStack(alignment: .top) {
-                        Text(item.author.location.city)
-                        Text(", ")
-                        Text(item.author.location.nation)
+            VStack {
+                HStack {
+                    Text("Books List:")
+                    Text(date, formatter: df)
+                }
+                
+                List(books, id: \.id) { item in
+                    let name = "\(item.author.last_name), \(item.author.first_name)"
+                    let place = "\(item.author.location.city), \(item.author.location.nation)"
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text(item.id)
+                                .font(.headline)
+                            Text(item.title)
+                            HStack(alignment: .top) {
+                                Text(name)
+                            }
+                            HStack(alignment: .top) {
+                                Text(place)
+                            }
+                        }
+                        Spacer()
+                        Image(systemName: "arrow.right")
                     }
                 }
+                .task {
+                    await loadData()
+                }
+                .border(.red, width: 0.5)
             }
-            .task {
-                await loadData()
-            }
-            
+
             VStack {
                 ProgressView("Loading...")
                     .tint(.blue)
                     .isHidden(isHidden)
             }
-            
         }
+        .padding(10)
     }
     
     func loadData() async {
