@@ -18,20 +18,23 @@ extension View {
 }
 
 struct ContentView: View {
-    @State var books = [Book]()
     
-    @State var isHidden = false
+    @State private var books = [Book]()
+    @State private var isHidden = false
+    @State private var hideBar = true
     
     let date : Date
     let df: DateFormatter
     
     let fontSize: CGFloat = 13
-    let priceTotal: String = "Total: ($) 0.00"
-    
+    var price: Float = 0.00
+
     init() {
         date = Date()
         df = DateFormatter()
         df.dateFormat = "MMM d, yyyy (EEE)"
+        
+        price = 1.25
     }
     
     var body: some View {
@@ -41,37 +44,38 @@ struct ContentView: View {
                 HStack {
                     Text(date, formatter: df)
                         .font(.system(size: fontSize, weight: .light, design: .default))
-                        .frame(maxWidth: .infinity, alignment: .leading)
                         .foregroundColor(.black)
-                    Text(priceTotal)
+                    Spacer()
+                    let priceDisplay = String(format: "Total: ($) %0.2f", price)
+                    Text(priceDisplay)
                         .font(.system(size: fontSize, weight: .light, design: .default))
-                        .frame(maxWidth: .infinity, alignment: .trailing)
                         .foregroundColor(.blue)
                 }
+                .padding(10)
                 
-                List(books, id: \.id) { item in
-                    let name = "\(item.author.last_name), \(item.author.first_name)"
-                    let place = "\(item.author.location.city), \(item.author.location.nation)"
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text(item.id)
-                                .font(.headline)
-                            Text(item.title)
-                            HStack(alignment: .top) {
-                                Text(name)
-                            }
-                            HStack(alignment: .top) {
-                                Text(place)
+                NavigationView {
+                    List(books, id: \.id) { item in
+                        NavigationLink(destination: DetailsView(selectedBook: item)) {
+                            let title = "\(item.id), \(item.title)"
+                            HStack {
+                                VStack(alignment: .leading) {
+                                    HStack {
+                                        Text(title)
+                                    }.frame(height: 50)
+                                }
                             }
                         }
-                        Spacer()
-                        Image(systemName: "arrow.right")
+                        .font(.system(size: 15))
+                        .navigationBarHidden(hideBar)
+                        .onAppear {
+                            self.hideBar = true
+                        }
+                    }
+                    .task {
+                        await loadData()
                     }
                 }
-                .task {
-                    await loadData()
-                }
-                .border(.red, width: 0.5)
+                .border(.black, width: 0.5)
             }
 
             VStack {
@@ -80,7 +84,6 @@ struct ContentView: View {
                     .isHidden(isHidden)
             }
         }
-        .padding(10)
     }
     
     func loadData() async {

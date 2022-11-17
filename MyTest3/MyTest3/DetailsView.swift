@@ -9,15 +9,36 @@ import SwiftUI
 
 struct DetailsView: View {
     
-    var selectedBook = Book.empty
+    var selectedBook: Book
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            HStack {
+                Text("Book: \(selectedBook.title)")
+                Spacer()
+            }
+            .padding(10)
+            
+            HStack {
+                Text("Author: \(selectedBook.author.first_name) \(selectedBook.author.last_name)")
+                Spacer()
+            }
+            .padding(10)
+
+            HStack {
+                Text("Pulished at: \(selectedBook.author.location.city), \(selectedBook.author.location.nation)")
+                Spacer()
+            }
+            .padding(10)
+
+            Spacer()
+        }
+        .border(.blue, width: 0.5)
     }
 }
 
 struct DetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailsView()
+        DetailsView(selectedBook: Book.empty)
     }
 }
